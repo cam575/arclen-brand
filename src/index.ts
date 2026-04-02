@@ -16,6 +16,7 @@ export {
   GlassShimmer,
   GlassSkeleton,
   hexToRgbInline,
+  ArclenFooter,
 } from "./components"
 export type { GlassLayersVariant, GlassBadgeVariant } from "./components"
 
