@@ -1,8 +1,8 @@
 /*
- * Arclen Glass — CSS utilities
+ * Arclen Brand — Glass CSS utilities
  *
  * Import this in your global CSS:
- *   @import 'arclen-glass/src/glass.css';
+ *   @import 'arclen-brand/src/glass.css';
  *
  * Your app must define these CSS custom properties on :root:
  *   --accent-rgb: 232, 93, 4;

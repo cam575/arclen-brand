@@ -1,7 +1,7 @@
 {
-  "name": "arclen-glass",
-  "version": "1.0.0",
-  "description": "Arclen glassmorphism design system — shared across Arclen projects",
+  "name": "arclen-brand",
+  "version": "2.0.0",
+  "description": "Arclen brand system — components, tokens, and design primitives shared across Arclen projects",
   "main": "src/index.ts",
   "types": "src/index.ts",
   "files": ["src/"],

@@ -1,11 +1,13 @@
-# arclen-glass
+# arclen-brand
 
-Glassmorphism design system shared across Arclen projects.
+Arclen brand system — components, tokens, and design primitives shared across Arclen projects.
+
+Formerly published as `arclen-glass`. Renamed in v2.0.0 to reflect broader scope (components + tokens + brand primitives).
 
 ## Install
 
 ```bash
-npm install cam575/arclen-glass
+npm install cam575/arclen-brand
 ```
 
 ## Setup
@@ -13,7 +15,7 @@ npm install cam575/arclen-glass
 Add to your global CSS:
 
 ```css
-@import 'arclen-glass/src/glass.css';
+@import 'arclen-brand/src/glass.css';
 ```
 
 Your app must define these CSS custom properties (see glass.css header for details):
@@ -26,6 +28,6 @@ Your app must define these CSS custom properties (see glass.css header for detai
 ## Usage
 
 ```tsx
-import { GlassCard, GlassButton, GlassBadge } from 'arclen-glass'
-import { accent, backgrounds, text } from 'arclen-glass'
+import { GlassCard, GlassButton, GlassBadge } from 'arclen-brand'
+import { accent, backgrounds, text } from 'arclen-brand'
 ```
