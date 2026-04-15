@@ -49,7 +49,7 @@ const OUTER_ACCENT_HOVER = "0 2px 4px rgba(232,93,4,0.25), 0 8px 28px rgba(232,9
 export function GlassIconButton({
   children,
   variant = "default",
-  size = 36,
+  size = 48,
   onClick,
   disabled = false,
   "aria-label": ariaLabel,
