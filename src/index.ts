@@ -18,8 +18,6 @@ export {
   hexToRgbInline,
   ArclenFooter,
   GlowButton,
-  GradientBorderCTA,
-  GlassPill,
   DashNavItem,
   DashTab,
   GlassPanel,
