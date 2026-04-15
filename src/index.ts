@@ -23,8 +23,28 @@ export {
   GlassPill,
   DashNavItem,
   DashTab,
+  GlassPanel,
+  GlassOverlayCard,
+  GlassFeatureCard,
+  LiquidGlassSwitcher,
+  NeonGlassMenu,
+  LiquidGlassKit,
+  LiquidGlassPlayer,
+  LiquidGlassTabBar,
+  LiquidGlassDock,
+  LIQUID_GLASS_SHADOW,
+  LIQUID_GLASS_STYLE,
+  LIQUID_GLASS_SHADOW_ELEVATED,
+  BORDER_DEFAULT,
+  BORDER_GLASS,
 } from "./components"
-export type { ArclenFooterCTA } from "./components"
+export type {
+  ArclenFooterCTA,
+  LiquidGlassSwitcherOption,
+  NeonMenuItem,
+  NeonMenuSection,
+  LiquidGlassTab,
+} from "./components"
 export type { GlassLayersVariant, GlassBadgeVariant } from "./components"
 
 // Simple button variants (framework-agnostic)
