@@ -111,8 +111,7 @@ export function LiquidGlassButton({
     ...style,
   }
 
-  /* Slide-in ember bar on active+hover (matches GlassButton accent hover trick) */
-  const showEmberBar = active && isLifted
+  /* Ember bar visible whenever active; widens slightly on hover */
 
   return (
     <button
@@ -139,14 +138,16 @@ export function LiquidGlassButton({
           style={{
             position: "absolute",
             bottom: 0,
-            left: showEmberBar ? "15%" : "40%",
-            right: showEmberBar ? "15%" : "40%",
+            left: isLifted ? "10%" : "15%",
+            right: isLifted ? "10%" : "15%",
             height: 2,
             borderRadius: 1,
             background:
               "linear-gradient(90deg, transparent 0%, #E85D04 30%, #FF8C42 50%, #E85D04 70%, transparent 100%)",
-            boxShadow: "0 0 6px rgba(232,93,4,0.35)",
-            opacity: showEmberBar ? 1 : 0,
+            boxShadow: isLifted
+              ? "0 0 10px rgba(232,93,4,0.5)"
+              : "0 0 6px rgba(232,93,4,0.35)",
+            opacity: 1,
             transition:
               "opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), left 0.35s cubic-bezier(0.16, 1, 0.3, 1), right 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
             pointerEvents: "none",
