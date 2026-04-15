@@ -20,7 +20,7 @@ interface LiquidGlassButtonProps {
 /* Inset reflex stack — sharper top specular highlight than the base
    LIQUID_GLASS_SHADOW for the wet-glass feel. */
 const REFLEX_STACK_BASE = [
-  "inset 0 0 0 1px rgba(255,255,255,0.10)",
+  "inset 0 0 0 1px rgba(255,255,255,0.05)",
   "inset 0 1.5px 0.5px -0.5px rgba(255,255,255,0.55)", // sharper top specular
   "inset 1.8px 3px 0px -2px rgba(255,255,255,0.27)",
   "inset -2px -2px 0px -2px rgba(255,255,255,0.24)",
@@ -30,7 +30,7 @@ const REFLEX_STACK_BASE = [
 ].join(", ")
 
 const REFLEX_STACK_ACTIVE = [
-  "inset 0 0 0 1px rgba(232,93,4,0.20)",
+  "inset 0 0 0 1px rgba(232,93,4,0.10)",
   "inset 0 1.5px 0.5px -0.5px rgba(255,200,140,0.65)", // ember-tinted top highlight
   "inset 1.8px 3px 0px -2px rgba(255,200,140,0.30)",
   "inset -2px -2px 0px -2px rgba(232,93,4,0.20)",
