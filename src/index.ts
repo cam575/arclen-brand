@@ -19,7 +19,6 @@ export {
   ArclenFooter,
   GlowButton,
   GradientBorderCTA,
-  SecondaryButton,
   GlassPill,
   DashNavItem,
   DashTab,
