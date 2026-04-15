@@ -17,7 +17,14 @@ export {
   GlassSkeleton,
   hexToRgbInline,
   ArclenFooter,
+  GlowButton,
+  GradientBorderCTA,
+  SecondaryButton,
+  GlassPill,
+  DashNavItem,
+  DashTab,
 } from "./components"
+export type { ArclenFooterCTA } from "./components"
 export type { GlassLayersVariant, GlassBadgeVariant } from "./components"
 
 // Simple button variants (framework-agnostic)
