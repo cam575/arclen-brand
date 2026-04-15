@@ -17,3 +17,11 @@ export { GlassSpotlight, GlassNoise, GlassShimmer, GlassSkeleton } from "./Glass
 export { hexToRgbInline } from "./helpers"
 export { ArclenFooter } from "./ArclenFooter"
 export type { ArclenFooterCTA } from "./ArclenFooter"
+
+// Brand button system (ported from /glass reference page)
+export { GlowButton } from "./GlowButton"
+export { GradientBorderCTA } from "./GradientBorderCTA"
+export { SecondaryButton } from "./SecondaryButton"
+export { GlassPill } from "./GlassPill"
+export { DashNavItem } from "./DashNavItem"
+export { DashTab } from "./DashTab"
