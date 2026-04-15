@@ -111,6 +111,9 @@ export function LiquidGlassButton({
     ...style,
   }
 
+  /* Slide-in ember bar on active+hover (matches GlassButton accent hover trick) */
+  const showEmberBar = active && isLifted
+
   return (
     <button
       type={type}
@@ -124,10 +127,33 @@ export function LiquidGlassButton({
       onMouseDown={() => setPressed(true)}
       onMouseUp={() => setPressed(false)}
       className={className}
-      style={baseStyle}
+      style={{ ...baseStyle, position: "relative", overflow: "hidden" }}
     >
-      {icon && <span style={{ display: "flex" }}>{icon}</span>}
-      {children}
+      {icon && <span style={{ display: "flex", position: "relative", zIndex: 1 }}>{icon}</span>}
+      <span style={{ position: "relative", zIndex: 1 }}>{children}</span>
+
+      {/* Active hover: slide-in ember bar at the bottom */}
+      {active && (
+        <span
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: showEmberBar ? "15%" : "40%",
+            right: showEmberBar ? "15%" : "40%",
+            height: 2,
+            borderRadius: 1,
+            background:
+              "linear-gradient(90deg, transparent 0%, #E85D04 30%, #FF8C42 50%, #E85D04 70%, transparent 100%)",
+            boxShadow: "0 0 6px rgba(232,93,4,0.35)",
+            opacity: showEmberBar ? 1 : 0,
+            transition:
+              "opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), left 0.35s cubic-bezier(0.16, 1, 0.3, 1), right 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
+      )}
     </button>
   )
 }
