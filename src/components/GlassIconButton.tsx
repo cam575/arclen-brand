@@ -32,12 +32,25 @@ const REFLEX_STACK_BASE = [
   "inset -1.5px 2.5px 0px -2px rgba(0,0,0,0.40)",
 ].join(", ")
 
-const REFLEX_STACK_ACCENT = [
+const REFLEX_STACK_ACCENT_REST = [
   "inset 0 0 0 1px rgba(232,93,4,0.10)",
   "inset 0 1.5px 0.5px -0.5px rgba(255,200,140,0.65)",
   "inset 1.8px 3px 0px -2px rgba(255,200,140,0.30)",
   "inset -2px -2px 0px -2px rgba(232,93,4,0.20)",
   "inset 0 -8px 12px -6px rgba(232,93,4,0.35)",
+  "inset -0.3px -1px 4px 0px rgba(0,0,0,0.20)",
+].join(", ")
+
+/* On hover, push the bottom inset ember glow harder so the entire lower
+   arc of the circle reads as luminous — replaces the rectangular slide-in bar
+   that didn't fit a circular surface. */
+const REFLEX_STACK_ACCENT_HOVER = [
+  "inset 0 0 0 1px rgba(232,93,4,0.18)",
+  "inset 0 1.5px 0.5px -0.5px rgba(255,210,160,0.85)",
+  "inset 1.8px 3px 0px -2px rgba(255,210,160,0.40)",
+  "inset -2px -2px 0px -2px rgba(232,93,4,0.30)",
+  "inset 0 -12px 18px -8px rgba(255,140,40,0.65)",
+  "inset 0 -2px 4px -1px rgba(255,200,140,0.40)",
   "inset -0.3px -1px 4px 0px rgba(0,0,0,0.20)",
 ].join(", ")
 
@@ -63,7 +76,11 @@ export function GlassIconButton({
   const isInteractive = Tag === "button"
   const isLifted = hovered && !disabled && !pressed
 
-  const innerReflex = isAccent ? REFLEX_STACK_ACCENT : REFLEX_STACK_BASE
+  const innerReflex = isAccent
+    ? isLifted
+      ? REFLEX_STACK_ACCENT_HOVER
+      : REFLEX_STACK_ACCENT_REST
+    : REFLEX_STACK_BASE
   const outer = isAccent
     ? isLifted
       ? OUTER_ACCENT_HOVER
@@ -137,30 +154,9 @@ export function GlassIconButton({
         {children}
       </span>
 
-      {/* Accent: slide-in ember bar at the bottom on hover (matches LiquidGlassButton active) */}
-      {isAccent && (
-        <span
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            bottom: size * 0.18,
-            left: isLifted ? "20%" : "30%",
-            right: isLifted ? "20%" : "30%",
-            height: 2,
-            borderRadius: 1,
-            background:
-              "linear-gradient(90deg, transparent 0%, #E85D04 30%, #FF8C42 50%, #E85D04 70%, transparent 100%)",
-            boxShadow: isLifted
-              ? "0 0 10px rgba(232,93,4,0.5)"
-              : "0 0 6px rgba(232,93,4,0.35)",
-            opacity: 1,
-            transition:
-              "left 0.35s cubic-bezier(0.16, 1, 0.3, 1), right 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease",
-            pointerEvents: "none",
-            zIndex: 2,
-          }}
-        />
-      )}
+      {/* Accent hover: bottom arc glow lives inside REFLEX_STACK_ACCENT_HOVER
+          so it follows the circle's curve naturally — no separate bar element
+          needed. (A horizontal bar would clip wrong on a circular surface.) */}
     </Tag>
   )
 }
