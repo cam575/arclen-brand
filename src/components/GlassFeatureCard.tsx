@@ -96,9 +96,10 @@ export function GlassFeatureCard({
         />
       </div>
 
-      {/* Main card */}
+      {/* Main card — absolutely positioned to share coordinate system with the
+          accent cards (top-[10%]) so the top light bar sits 42px ABOVE the card. */}
       <div
-        className="relative flex h-[500px] w-[320px] flex-col justify-end rounded-2xl p-6 pr-10"
+        className="absolute left-1/2 top-[10%] flex h-[500px] w-[320px] -translate-x-1/2 flex-col justify-end rounded-2xl p-6 pr-10"
         style={{
           background:
             "linear-gradient(180deg, rgba(41,41,41,0.67) 0%, rgba(25,25,25,0.8) 50%)",
