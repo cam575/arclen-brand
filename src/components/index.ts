@@ -26,8 +26,6 @@ export { GlassPill } from "./GlassPill"
 export { DashNavItem } from "./DashNavItem"
 export { DashTab } from "./DashTab"
 export { LiquidGlassButton } from "./LiquidGlassButton"
-export { MetalButton } from "./MetalButton"
-export type { MetalColorVariant } from "./MetalButton"
 
 // Brand card + effect system (ported from /glass reference page)
 export { GlassPanel } from "./GlassPanel"

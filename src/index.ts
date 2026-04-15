@@ -33,7 +33,6 @@ export {
   LiquidGlassTabBar,
   LiquidGlassDock,
   LiquidGlassButton,
-  MetalButton,
   LIQUID_GLASS_SHADOW,
   LIQUID_GLASS_STYLE,
   LIQUID_GLASS_SHADOW_ELEVATED,
@@ -46,7 +45,6 @@ export type {
   NeonMenuItem,
   NeonMenuSection,
   LiquidGlassTab,
-  MetalColorVariant,
 } from "./components"
 export type { GlassLayersVariant, GlassBadgeVariant } from "./components"
 
