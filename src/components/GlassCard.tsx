@@ -95,6 +95,31 @@ const ACCENT_TOKENS: VariantTokens = {
   topLineColor: "rgba(255,160,60,0.7)",
 }
 
+/* Clear — ethereal see-through glass. Minimal tint, lighter blur so the
+   content behind is visibly readable. Use for overlays, modals, cards on
+   rich backgrounds where you want the backdrop to breathe through. */
+const CLEAR_TOKENS: VariantTokens = {
+  fill:
+    "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 50%, rgba(255,255,255,0) 100%)",
+  fillHover:
+    "linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.01) 100%)",
+  specular: "inset 0 1px 0.5px -0.5px rgba(255,255,255,0.5)",
+  spotlight: "rgba(255,255,255,0.05)",
+  outerGlow: neutralElevation,
+  cornerStack: [
+    "inset 4px 4px 10px -8px rgba(255,180,120,0.08)",
+    "inset -4px -4px 10px -8px rgba(100,180,255,0.05)",
+    "inset 0 -10px 16px -14px rgba(0,0,0,0.30)",
+  ].join(", "),
+  edgeStack: [
+    "inset 0 0 0 1px rgba(255,255,255,0.04)",
+    "inset 1px 0 1px -1px rgba(255,255,255,0.10)",
+    "inset -1px 0 1px -1px rgba(0,0,0,0.08)",
+    "inset 0 -1px 0.5px -0.5px rgba(0,0,0,0.18)",
+  ].join(", "),
+  topLineColor: "rgba(255,255,255,0.3)",
+}
+
 const BLUE_TOKENS: VariantTokens = {
   fill:
     "linear-gradient(180deg, rgba(160,210,255,0.12) 0%, rgba(0,100,240,0.08) 50%, rgba(0,100,240,0.02) 100%)",
@@ -121,6 +146,7 @@ const VARIANT_TOKENS: Record<GlassVariant, VariantTokens> = {
   default: DEFAULT_TOKENS,
   accent: ACCENT_TOKENS,
   blue: BLUE_TOKENS,
+  clear: CLEAR_TOKENS,
 }
 
 export function GlassCard({
@@ -177,15 +203,17 @@ export function GlassCard({
         ...style,
       }}
     >
-      {/* Frosted backdrop blur */}
+      {/* Frosted backdrop blur — lighter for clear variant so content behind breathes through */}
       <span
         aria-hidden="true"
         style={{
           position: "absolute",
           inset: 0,
           borderRadius: "inherit",
-          backdropFilter: "blur(16px) saturate(160%)",
-          WebkitBackdropFilter: "blur(16px) saturate(160%)",
+          backdropFilter:
+            variant === "clear" ? "blur(8px) saturate(140%)" : "blur(16px) saturate(160%)",
+          WebkitBackdropFilter:
+            variant === "clear" ? "blur(8px) saturate(140%)" : "blur(16px) saturate(160%)",
           pointerEvents: "none",
         }}
       />

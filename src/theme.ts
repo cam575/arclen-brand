@@ -208,13 +208,28 @@ export const demoBackground = backgrounds.rich;
 // COMPUTED HELPERS — used by glass.tsx
 // ═══════════════════════════════════════════════
 
-export type GlassVariant = "default" | "accent" | "blue";
+export type GlassVariant = "default" | "accent" | "blue" | "clear";
 
 /** 3D bevel border — bright top, visible bottom */
 export function glassBorder(
   variant: GlassVariant,
   angle: number = 180
 ): React.CSSProperties {
+  // Clear variant gets a very subtle white border (half strength of default)
+  if (variant === "clear") {
+    return {
+      border: `${border.width} solid transparent`,
+      background: `transparent padding-box,
+        linear-gradient(${angle}deg,
+          rgba(255,255,255,0.22) 0%,
+          rgba(255,255,255,0.08) 30%,
+          rgba(255,255,255,0.04) 50%,
+          rgba(255,255,255,0.06) 70%,
+          rgba(255,255,255,0.10) 100%
+        ) border-box`,
+    };
+  }
+
   const b =
     variant === "accent"
       ? border.accent
@@ -265,6 +280,11 @@ export function glassBorder(
 
 /** Dual inset shadows: bright top line + subtle bottom line */
 export function insetBevel(variant: GlassVariant): string {
+  // Clear variant: near-invisible inset — let the content behind show through
+  if (variant === "clear") {
+    return "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(255,255,255,0.04)";
+  }
+
   const cfg =
     variant === "accent"
       ? inset.accent
