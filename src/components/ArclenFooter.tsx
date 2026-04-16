@@ -86,6 +86,21 @@ export function ArclenFooter({ cta }: { cta?: ArclenFooterCTA } = {}) {
       )}
 
       <div className={`relative z-10 max-w-[1200px] mx-auto px-6 ${cta ? "pt-4" : "pt-16"}`}>
+        {/* Rich dual-tone ambient backdrop — gives the Clear variant
+            something to actually reveal. Ember top-left, blue bottom-right,
+            composition (never blended in one gradient). */}
+        <div
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{
+            inset: "0 0 -40px 0",
+            backgroundImage: [
+              "radial-gradient(ellipse 45% 85% at 15% 25%, rgba(232,93,4,0.20) 0%, transparent 55%)",
+              "radial-gradient(ellipse 45% 85% at 85% 75%, rgba(0,100,240,0.16) 0%, transparent 55%)",
+            ].join(", "),
+            zIndex: 0,
+          }}
+        />
         {/* Soft ember glow bridging the card and the ghosted wordmark below */}
         <div
           aria-hidden="true"
@@ -99,12 +114,12 @@ export function ArclenFooter({ cta }: { cta?: ArclenFooterCTA } = {}) {
             zIndex: 0,
           }}
         />
-        <GlassCard variant="clear" hover={false} noise padding="40px 32px" className="relative">
+        <GlassCard variant="clear" hover={false} padding="40px 32px" className="relative">
         <div className="grid grid-cols-2 sm:grid-cols-[1.8fr_1fr_1fr_1fr_1fr] gap-8">
           {/* Brand column */}
           <div className="col-span-2 sm:col-span-1 sm:pr-8">
             <img
-              src="https://arclen.io/arclen-wordmark.png"
+              src="https://arclen.io/logos/arclen-wordmark.png"
               alt="Arclen"
               width={120}
               height={32}
@@ -245,7 +260,7 @@ export function ArclenFooter({ cta }: { cta?: ArclenFooterCTA } = {}) {
             }}
           />
           <img
-            src="https://arclen.io/images/torus/torusv2.webp"
+            src="https://arclen.io/images/torus/torus-v4-compact.webp"
             alt=""
             width={640}
             height={640}
