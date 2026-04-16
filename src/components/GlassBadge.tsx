@@ -72,8 +72,11 @@ export function GlassBadge({
 
   const textColor = colorVariant ? colorVariant.text : isAccent ? accent.primary : text.secondary;
   const bgFill = colorVariant ? colorVariant.fill : isAccent ? fill.flat.accent : fill.flat.default;
-  /* Wet-glass specular highlight — matches LiquidGlassButton / GlassIconButton */
-  const specularHighlight = "inset 0 1.5px 0.5px -0.5px rgba(255,255,255,0.55)";
+  /* Wet-glass specular highlight — scaled for badge size (thinner than button) */
+  const specularHighlight =
+    size === "sm"
+      ? "inset 0 0.5px 0.5px -0.5px rgba(255,255,255,0.4)"
+      : "inset 0 1px 0.5px -0.5px rgba(255,255,255,0.45)";
 
   const bevelShadow = colorVariant
     ? `${specularHighlight}, inset 0 1px 0 ${colorVariant.bevelTop}, inset 0 -1px 0 ${colorVariant.bevelBottom}`
