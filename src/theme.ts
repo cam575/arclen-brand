@@ -57,6 +57,13 @@ export const shadows = {
 // ─── Glass Fill ────────────────────────────────
 // Very low opacity — the glass is transparent.
 
+/** Blue accent — secondary brand color for AI / Build surfaces */
+export const blueAccent = {
+  primary: "#0064F0",
+  light: "#4AB4FF",
+  mid: "#1A9FF8",
+} as const;
+
 export const fill = {
   default: {
     from: "rgba(255,255,255,0.08)",
@@ -67,9 +74,15 @@ export const fill = {
     mid: `rgba(${hexToRgb(accent.primary)},0.22)`,
     to: `rgba(${hexToRgb(accent.primary)},0.12)`,
   },
+  blue: {
+    from: "rgba(255,255,255,0.12)",
+    mid: `rgba(${hexToRgb(blueAccent.primary)},0.18)`,
+    to: `rgba(${hexToRgb(blueAccent.primary)},0.10)`,
+  },
   flat: {
     default: "rgba(255,255,255,0.05)",
     accent: `rgba(${hexToRgb(accent.primary)},0.08)`,
+    blue: `rgba(${hexToRgb(blueAccent.primary)},0.08)`,
   },
 } as const;
 
@@ -95,6 +108,13 @@ export const border = {
     midLow: 0.18,
     bottom: 0.35,
   },
+  blue: {
+    top: 0.65,
+    midHigh: 0.22,
+    mid: 0.12,
+    midLow: 0.15,
+    bottom: 0.30,
+  },
 } as const;
 
 // ─── Inset Bevel Config ────────────────────────
@@ -108,6 +128,10 @@ export const inset = {
   accent: {
     topOpacity: 0.55,
     bottomOpacity: 0.2,
+  },
+  blue: {
+    topOpacity: 0.5,
+    bottomOpacity: 0.18,
   },
 } as const;
 
@@ -123,6 +147,10 @@ export const highlight = {
     from: "rgba(255,160,60,0.22)",
     mid: "rgba(255,120,30,0.06)",
   },
+  blue: {
+    from: "rgba(120,200,255,0.20)",
+    mid: "rgba(0,100,240,0.05)",
+  },
 } as const;
 
 // ─── Card Top Line ─────────────────────────────
@@ -130,6 +158,7 @@ export const highlight = {
 export const topLine = {
   default: "rgba(255,255,255,0.4)",
   accent: "rgba(255,160,60,0.7)",
+  blue: "rgba(120,200,255,0.6)",
   inset: "5%",
 } as const;
 
@@ -179,31 +208,47 @@ export const demoBackground = backgrounds.rich;
 // COMPUTED HELPERS — used by glass.tsx
 // ═══════════════════════════════════════════════
 
-export type GlassVariant = "default" | "accent";
+export type GlassVariant = "default" | "accent" | "blue";
 
 /** 3D bevel border — bright top, visible bottom */
 export function glassBorder(
   variant: GlassVariant,
   angle: number = 180
 ): React.CSSProperties {
-  const isAccent = variant === "accent";
-  const b = isAccent ? border.accent : border.default;
+  const b =
+    variant === "accent"
+      ? border.accent
+      : variant === "blue"
+        ? border.blue
+        : border.default;
 
-  const topColor = isAccent
-    ? `rgba(255,180,80,${b.top})`
-    : `rgba(255,255,255,${b.top})`;
-  const midHighColor = isAccent
-    ? `rgba(${hexToRgb(accent.primary)},${b.midHigh})`
+  const topColor =
+    variant === "accent"
+      ? `rgba(255,180,80,${b.top})`
+      : variant === "blue"
+        ? `rgba(120,200,255,${b.top})`
+        : `rgba(255,255,255,${b.top})`;
+  const accentRgb =
+    variant === "accent"
+      ? hexToRgb(accent.primary)
+      : variant === "blue"
+        ? hexToRgb(blueAccent.primary)
+        : null;
+  const midHighColor = accentRgb
+    ? `rgba(${accentRgb},${b.midHigh})`
     : `rgba(255,255,255,${b.midHigh})`;
-  const midColor = isAccent
-    ? `rgba(${hexToRgb(accent.primary)},${b.mid})`
+  const midColor = accentRgb
+    ? `rgba(${accentRgb},${b.mid})`
     : `rgba(255,255,255,${b.mid})`;
-  const midLowColor = isAccent
-    ? `rgba(${hexToRgb(accent.primary)},${b.midLow})`
+  const midLowColor = accentRgb
+    ? `rgba(${accentRgb},${b.midLow})`
     : `rgba(255,255,255,${b.midLow})`;
-  const bottomColor = isAccent
-    ? `rgba(255,160,60,${b.bottom})`
-    : `rgba(255,255,255,${b.bottom})`;
+  const bottomColor =
+    variant === "accent"
+      ? `rgba(255,160,60,${b.bottom})`
+      : variant === "blue"
+        ? `rgba(74,180,255,${b.bottom})`
+        : `rgba(255,255,255,${b.bottom})`;
 
   return {
     border: `${border.width} solid transparent`,
@@ -220,15 +265,25 @@ export function glassBorder(
 
 /** Dual inset shadows: bright top line + subtle bottom line */
 export function insetBevel(variant: GlassVariant): string {
-  const isAccent = variant === "accent";
-  const cfg = isAccent ? inset.accent : inset.default;
+  const cfg =
+    variant === "accent"
+      ? inset.accent
+      : variant === "blue"
+        ? inset.blue
+        : inset.default;
 
-  const topColor = isAccent
-    ? `rgba(255,180,80,${cfg.topOpacity})`
-    : `rgba(255,255,255,${cfg.topOpacity})`;
-  const bottomColor = isAccent
-    ? `rgba(255,140,40,${cfg.bottomOpacity})`
-    : `rgba(255,255,255,${cfg.bottomOpacity})`;
+  const topColor =
+    variant === "accent"
+      ? `rgba(255,180,80,${cfg.topOpacity})`
+      : variant === "blue"
+        ? `rgba(120,200,255,${cfg.topOpacity})`
+        : `rgba(255,255,255,${cfg.topOpacity})`;
+  const bottomColor =
+    variant === "accent"
+      ? `rgba(255,140,40,${cfg.bottomOpacity})`
+      : variant === "blue"
+        ? `rgba(0,100,240,${cfg.bottomOpacity})`
+        : `rgba(255,255,255,${cfg.bottomOpacity})`;
 
   return `inset 0 1px 0 ${topColor}, inset 0 -1px 0 ${bottomColor}`;
 }
