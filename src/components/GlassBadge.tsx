@@ -5,8 +5,6 @@ import {
   accent,
   text,
   fill,
-  blur,
-  saturate,
   radius,
   glassBorder,
   insetBevel,
@@ -17,7 +15,7 @@ import {
 // GlassBadge — Small glass tag/chip
 // ═══════════════════════════════════════════════
 
-export type GlassBadgeVariant = GlassVariant | "success" | "danger";
+export type GlassBadgeVariant = GlassVariant | "success" | "danger" | "blue";
 
 interface GlassBadgeProps {
   children: React.ReactNode;
@@ -30,7 +28,7 @@ interface GlassBadgeProps {
   style?: React.CSSProperties;
 }
 
-const BADGE_COLORS: Record<string, { text: string; fill: string; borderTop: number; borderMid: number; bevelTop: string; bevelBottom: string }> = {
+const BADGE_COLORS: Record<string, { text: string; fill: string; borderTop: number; borderMid: number; bevelTop: string; bevelBottom: string; rgbTriplet: string }> = {
   success: {
     text: "#22C55E",
     fill: "rgba(34,197,94,0.08)",
@@ -38,6 +36,7 @@ const BADGE_COLORS: Record<string, { text: string; fill: string; borderTop: numb
     borderMid: 0.15,
     bevelTop: "rgba(34,197,94,0.35)",
     bevelBottom: "rgba(34,197,94,0.1)",
+    rgbTriplet: "34,197,94",
   },
   danger: {
     text: "#EF4444",
@@ -46,6 +45,16 @@ const BADGE_COLORS: Record<string, { text: string; fill: string; borderTop: numb
     borderMid: 0.15,
     bevelTop: "rgba(239,68,68,0.35)",
     bevelBottom: "rgba(239,68,68,0.1)",
+    rgbTriplet: "239,68,68",
+  },
+  blue: {
+    text: "#4AB4FF",
+    fill: "rgba(0,100,240,0.08)",
+    borderTop: 0.5,
+    borderMid: 0.15,
+    bevelTop: "rgba(74,180,255,0.40)",
+    bevelBottom: "rgba(0,100,240,0.1)",
+    rgbTriplet: "0,100,240",
   },
 };
 
@@ -63,16 +72,19 @@ export function GlassBadge({
 
   const textColor = colorVariant ? colorVariant.text : isAccent ? accent.primary : text.secondary;
   const bgFill = colorVariant ? colorVariant.fill : isAccent ? fill.flat.accent : fill.flat.default;
+  /* Wet-glass specular highlight — matches LiquidGlassButton / GlassIconButton */
+  const specularHighlight = "inset 0 1.5px 0.5px -0.5px rgba(255,255,255,0.55)";
+
   const bevelShadow = colorVariant
-    ? `inset 0 1px 0 ${colorVariant.bevelTop}, inset 0 -1px 0 ${colorVariant.bevelBottom}`
-    : insetBevel(isAccent ? "accent" : "default");
+    ? `${specularHighlight}, inset 0 1px 0 ${colorVariant.bevelTop}, inset 0 -1px 0 ${colorVariant.bevelBottom}`
+    : `${specularHighlight}, ${insetBevel(isAccent ? "accent" : "default")}`;
   const borderGrad = colorVariant
     ? {
         border: "1px solid transparent" as const,
         background: `transparent padding-box, linear-gradient(180deg,
-          rgba(${variant === "success" ? "34,197,94" : "239,68,68"},${colorVariant.borderTop}) 0%,
-          rgba(${variant === "success" ? "34,197,94" : "239,68,68"},${colorVariant.borderMid}) 50%,
-          rgba(${variant === "success" ? "34,197,94" : "239,68,68"},0.2) 100%
+          rgba(${colorVariant.rgbTriplet},${colorVariant.borderTop}) 0%,
+          rgba(${colorVariant.rgbTriplet},${colorVariant.borderMid}) 50%,
+          rgba(${colorVariant.rgbTriplet},0.2) 100%
         ) border-box`,
       }
     : glassBorder(isAccent ? "accent" : "default");
@@ -113,8 +125,8 @@ export function GlassBadge({
           borderRadius: "inherit",
           background: bgFill,
           ...(!opaque && {
-            backdropFilter: `blur(${blur.medium}px) saturate(${saturate.medium})`,
-            WebkitBackdropFilter: `blur(${blur.medium}px) saturate(${saturate.medium})`,
+            backdropFilter: "blur(10px) saturate(170%)",
+            WebkitBackdropFilter: "blur(10px) saturate(170%)",
           }),
           boxShadow: bevelShadow,
         }}
