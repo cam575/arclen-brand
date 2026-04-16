@@ -207,12 +207,20 @@ const NEON_MENU_CSS = `
 .neon-menu .glow-bright::after { content: none; }
 .neon-menu .glow-bright.glow-bottom { inset: -4px; right: auto; top: auto; }
 
-/* Ember (top) hue washes toward pale peach at high lightness, so it reads
-   softer than the blue (bottom) line at equal --lit. Compensate by pulling
-   the ember variants down to mid-tone saturated orange. */
-.neon-menu .shine.shine-top { --lit: 56%; --sat: 98%; }
-.neon-menu .shine.shine-top::after { --lit: 78%; --sat: 100%; }
-.neon-menu .glow-bright.glow-top { --lit: 68%; --sat: 100%; }
+/* Ember (top) hue washes toward pale peach at high lightness AND warm
+   colors perceptually advance (look thicker) vs cool blue on dark bg.
+   Compensate with lower --lit, tighter conic band, and a thinner,
+   slightly sharper line on the top variants only. */
+.neon-menu .shine.shine-top { --lit: 56%; --sat: 98%; --start: 14%; --end: 48%; }
+.neon-menu .shine.shine-top::after { --lit: 78%; --sat: 100%; --start: 19%; --end: 31%; }
+.neon-menu .glow-bright.glow-top {
+  --lit: 68%;
+  --sat: 100%;
+  --start: 16%;
+  --end: 34%;
+  border-width: 2px;
+  filter: blur(0.3px) brightness(1);
+}
 
 /* ===== flicker animations ===== */
 .neon-menu .shine, .neon-menu .glow, .neon-menu .glow-bright { animation: neon-glow 1s var(--ease) both; }
