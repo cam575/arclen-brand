@@ -207,6 +207,13 @@ const NEON_MENU_CSS = `
 .neon-menu .glow-bright::after { content: none; }
 .neon-menu .glow-bright.glow-bottom { inset: -4px; right: auto; top: auto; }
 
+/* Ember (top) hue washes toward pale peach at high lightness, so it reads
+   softer than the blue (bottom) line at equal --lit. Compensate by pulling
+   the ember variants down to mid-tone saturated orange. */
+.neon-menu .shine.shine-top { --lit: 56%; --sat: 98%; }
+.neon-menu .shine.shine-top::after { --lit: 78%; --sat: 100%; }
+.neon-menu .glow-bright.glow-top { --lit: 68%; --sat: 100%; }
+
 /* ===== flicker animations ===== */
 .neon-menu .shine, .neon-menu .glow, .neon-menu .glow-bright { animation: neon-glow 1s var(--ease) both; }
 .neon-menu .shine { animation-delay: 0s; animation-duration: 2s; }
