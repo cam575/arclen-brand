@@ -11,8 +11,11 @@ interface GlassPanelProps {
 }
 
 /**
- * GlassPanel — frosted glass overlay with directional border fades
- * (top-left white, bottom-right brand). Use as a reusable card surface.
+ * GlassPanel — frosted glass content surface with directional border fades
+ * (top-left white, bottom-right brand). Static — no hover.
+ *
+ * Use as a reusable container for content that needs the Arclen glass aesthetic:
+ * pricing tiles, feature cards, sidebar panels, etc.
  */
 export function GlassPanel({
   children,
@@ -22,12 +25,12 @@ export function GlassPanel({
 }: GlassPanelProps) {
   return (
     <div className={`relative overflow-hidden ${rounded} ${className}`} style={style}>
-      {/* Frosted blur */}
+      {/* Frosted blur — richer than before, matches the new system */}
       <div
         className="absolute inset-0"
         style={{
-          backdropFilter: "blur(12px) saturate(1.4)",
-          WebkitBackdropFilter: "blur(12px) saturate(1.4)",
+          backdropFilter: "blur(16px) saturate(150%)",
+          WebkitBackdropFilter: "blur(16px) saturate(150%)",
         }}
       />
       {/* Glass fill — gradient white tint */}
@@ -36,6 +39,18 @@ export function GlassPanel({
         style={{
           background:
             "linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03))",
+        }}
+      />
+      {/* Subtle top specular highlight — softer than the button (content surface, not interactive) */}
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-0 ${rounded}`}
+        style={{
+          boxShadow: [
+            "inset 0 1px 0.5px -0.5px rgba(255,255,255,0.35)",
+            "inset 0 -1px 0.5px -0.5px rgba(0,0,0,0.15)",
+            "inset 1px 0 1px -1px rgba(255,255,255,0.12)",
+          ].join(", "),
         }}
       />
       {/* Top-left white border fade */}
