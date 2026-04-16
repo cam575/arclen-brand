@@ -131,8 +131,8 @@ const NEON_MENU_CSS = `
   width: 75%; height: auto; aspect-ratio: 1;
   display: block; position: absolute; left: auto; bottom: auto;
 
-  opacity: 1;
-  filter: blur(12px) saturate(1.25) brightness(0.5);
+  opacity: 0.7;
+  filter: blur(14px) saturate(1.1) brightness(0.3);
   mix-blend-mode: plus-lighter;
   z-index: 3;
 }
