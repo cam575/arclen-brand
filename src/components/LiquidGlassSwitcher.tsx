@@ -70,22 +70,33 @@ export function LiquidGlassSwitcher({
       </svg>
 
       <fieldset
-        className={`flex items-center gap-2 border-none p-0 ${className}`}
+        className={`flex items-center justify-center border-none ${className}`}
         style={{
+          position: "relative",
           width: `${width}px`,
           height: "70px",
-          padding: "8px 12px 10px",
+          padding: "10px",
+          gap: "6px",
           borderRadius: "99em",
-          backgroundColor: "rgba(187,187,188,0.12)",
-          backdropFilter: "blur(8px) saturate(150%)",
-          WebkitBackdropFilter: "blur(8px) saturate(150%)",
+          backgroundColor: "rgba(187,187,188,0.08)",
+          backdropFilter: "blur(12px) saturate(180%)",
+          WebkitBackdropFilter: "blur(12px) saturate(180%)",
           boxShadow: [
-            "inset 0 0 0 1px rgba(255,255,255,0.10)",
+            // Wet-glass top specular
+            "inset 0 1px 0.5px -0.5px rgba(255,255,255,0.55)",
+            // Base reflex stack
+            "inset 0 0 0 1px rgba(255,255,255,0.08)",
             "inset 1.8px 3px 0px -2px rgba(255,255,255,0.27)",
             "inset -2px -2px 0px -2px rgba(255,255,255,0.24)",
             "inset -3px -8px 1px -6px rgba(255,255,255,0.18)",
             "inset -0.3px -1px 4px 0px rgba(0,0,0,0.24)",
             "inset -1.5px 2.5px 0px -2px rgba(0,0,0,0.40)",
+            // Warm + cool corner catchlights
+            "inset 8px 8px 16px -10px rgba(255,180,120,0.15)",
+            "inset -8px -8px 16px -10px rgba(100,180,255,0.10)",
+            // Outer drop shadow for elevation
+            "0 1px 2px rgba(0,0,0,0.20)",
+            "0 8px 24px rgba(0,0,0,0.25)",
           ].join(", "),
         }}
       >
@@ -103,17 +114,34 @@ export function LiquidGlassSwitcher({
                 width: "50px",
                 height: "50px",
                 borderRadius: "99em",
-                color: isActive ? "#E85D04" : "rgba(255,255,255,0.35)",
+                color: isActive ? "#E85D04" : "rgba(255,255,255,0.4)",
                 transition: "all 0.4s cubic-bezier(1, 0, 0.4, 1)",
-                background: isActive ? "rgba(232,93,4,0.08)" : "transparent",
+                background: isActive
+                  ? "rgba(232,93,4,0.12)"
+                  : "transparent",
                 boxShadow: isActive
                   ? [
-                      "inset 0 0 0 1px rgba(232,93,4,0.15)",
-                      "inset 1px 2px 0px -1px rgba(255,255,255,0.20)",
-                      "inset -1px -2px 0px -1px rgba(0,0,0,0.15)",
-                      "0 2px 8px rgba(232,93,4,0.15)",
+                      // Sharper ember specular on active
+                      "inset 0 1px 0.5px -0.5px rgba(255,210,160,0.75)",
+                      "inset 0 0 0 1px rgba(232,93,4,0.20)",
+                      "inset 1px 2px 0px -1px rgba(255,200,140,0.30)",
+                      "inset -1px -2px 0px -1px rgba(0,0,0,0.20)",
+                      // Bottom ember glow (follows the circle curve)
+                      "inset 0 -8px 12px -6px rgba(232,93,4,0.40)",
+                      "0 2px 8px rgba(232,93,4,0.25)",
+                      "0 0 20px rgba(232,93,4,0.15)",
                     ].join(", ")
                   : "none",
+              }}
+              onMouseEnter={(e) => {
+                if (isActive) return
+                e.currentTarget.style.color = "rgba(255,255,255,0.8)"
+                e.currentTarget.style.background = "rgba(255,255,255,0.06)"
+              }}
+              onMouseLeave={(e) => {
+                if (isActive) return
+                e.currentTarget.style.color = "rgba(255,255,255,0.4)"
+                e.currentTarget.style.background = "transparent"
               }}
             >
               <input
