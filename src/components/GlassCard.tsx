@@ -12,6 +12,8 @@ import { GlassNoise } from "./GlassEffects"
 // interactive trait.
 // ═══════════════════════════════════════════════
 
+type TopLineTone = "default" | "ember" | "blue" | "ember-blue"
+
 interface GlassCardProps {
   children: React.ReactNode
   variant?: GlassVariant
@@ -19,8 +21,23 @@ interface GlassCardProps {
   hover?: boolean
   /** Add frosted noise texture. `true` = default opacity (0.08), or pass a number for custom opacity. */
   noise?: boolean | number
+  /** Override the top edge highlight tone. Defaults to the variant's built-in color (white for default/clear, warm for accent, cool for blue).
+   *  - `"ember"` — warm orange glow (use when the card sits near ember-themed content)
+   *  - `"blue"` — cool blue glow (use near AI/Build surfaces)
+   *  - `"ember-blue"` — compositional dual-tone: ember left, blue right, transparent gap between (for dual-context cards) */
+  topLine?: TopLineTone
   className?: string
   style?: React.CSSProperties
+}
+
+const TOP_LINE_GRADIENTS: Record<Exclude<TopLineTone, "default">, string> = {
+  ember:
+    "linear-gradient(90deg, transparent 0%, rgba(232,93,4,0.55) 50%, transparent 100%)",
+  blue:
+    "linear-gradient(90deg, transparent 0%, rgba(0,100,240,0.55) 50%, transparent 100%)",
+  // Compositional: ember left, blue right, transparent gap between — never blended
+  "ember-blue":
+    "linear-gradient(90deg, transparent 0%, transparent 15%, rgba(232,93,4,0.55) 30%, transparent 50%, rgba(0,100,240,0.55) 70%, transparent 85%, transparent 100%)",
 }
 
 /* ────── Variant tokens ────── */
@@ -155,6 +172,7 @@ export function GlassCard({
   padding = "24px",
   hover = true,
   noise = false,
+  topLine,
   className = "",
   style = {},
 }: GlassCardProps) {
@@ -255,7 +273,8 @@ export function GlassCard({
       />
       {/* Frosted noise texture (opt-in) */}
       {noise && <GlassNoise opacity={typeof noise === "number" ? noise : undefined} />}
-      {/* Top highlight line — brightens on hover */}
+      {/* Top highlight line — brightens on hover. Honors `topLine` prop
+          override, otherwise falls back to the variant's token color. */}
       <span
         aria-hidden="true"
         style={{
@@ -264,7 +283,10 @@ export function GlassCard({
           left: "5%",
           right: "5%",
           height: "1px",
-          background: `linear-gradient(90deg, transparent 0%, ${tokens.topLineColor} 50%, transparent 100%)`,
+          background:
+            topLine && topLine !== "default"
+              ? TOP_LINE_GRADIENTS[topLine]
+              : `linear-gradient(90deg, transparent 0%, ${tokens.topLineColor} 50%, transparent 100%)`,
           pointerEvents: "none",
           transition: "filter 0.3s ease",
           filter: isLifted ? "brightness(1.6)" : "brightness(1)",

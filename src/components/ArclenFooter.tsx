@@ -99,7 +99,7 @@ export function ArclenFooter({ cta }: { cta?: ArclenFooterCTA } = {}) {
             zIndex: 0,
           }}
         />
-        <GlassCard variant="clear" hover={false} padding="40px 32px" className="relative">
+        <GlassCard variant="clear" topLine="ember" hover={false} padding="40px 32px" className="relative">
         <div className="grid grid-cols-2 sm:grid-cols-[1.8fr_1fr_1fr_1fr_1fr] gap-8">
           {/* Brand column */}
           <div className="col-span-2 sm:col-span-1 sm:pr-8">
