@@ -43,74 +43,76 @@ type VariantTokens = {
   topLineColor: string
 }
 
+/* Neutral elevation shadow — same for all variants (no colored halos).
+   Cards feel like solid objects sitting above the surface, not glowing tiles. */
+const neutralElevation = (lifted: boolean): string =>
+  lifted
+    ? "0 2px 4px rgba(0,0,0,0.28), 0 16px 40px rgba(0,0,0,0.38), 0 0 1px rgba(255,255,255,0.06)"
+    : "0 1px 2px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.28), 0 0 1px rgba(255,255,255,0.04)"
+
 const DEFAULT_TOKENS: VariantTokens = {
   fill:
-    "linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
+    "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.035) 50%, rgba(255,255,255,0.01) 100%)",
   fillHover:
-    "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 100%)",
-  specular: "inset 0 1px 0.5px -0.5px rgba(255,255,255,0.55)",
+    "linear-gradient(180deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 100%)",
+  specular: "inset 0 1.25px 0.5px -0.5px rgba(255,255,255,0.6)",
   spotlight: "rgba(255,255,255,0.08)",
-  outerGlow: (lifted) =>
-    lifted
-      ? "0 2px 4px rgba(0,0,0,0.25), 0 12px 32px rgba(0,0,0,0.30)"
-      : "0 1px 2px rgba(0,0,0,0.20), 0 6px 18px rgba(0,0,0,0.20)",
+  outerGlow: neutralElevation,
   cornerStack: [
     "inset 6px 6px 12px -8px rgba(255,180,120,0.12)",
     "inset -6px -6px 12px -8px rgba(100,180,255,0.08)",
+    // Bottom inner shadow — grounds the card, gives it volume
+    "inset 0 -12px 20px -16px rgba(0,0,0,0.45)",
   ].join(", "),
   edgeStack: [
     "inset 0 0 0 1px rgba(255,255,255,0.06)",
     "inset 1px 0 1px -1px rgba(255,255,255,0.14)",
-    "inset -1px 0 1px -1px rgba(0,0,0,0.10)",
-    "inset 0 -1px 0.5px -0.5px rgba(0,0,0,0.18)",
+    "inset -1px 0 1px -1px rgba(0,0,0,0.12)",
+    "inset 0 -1px 0.5px -0.5px rgba(0,0,0,0.25)",
   ].join(", "),
   topLineColor: "rgba(255,255,255,0.4)",
 }
 
 const ACCENT_TOKENS: VariantTokens = {
   fill:
-    "linear-gradient(180deg, rgba(255,200,120,0.10) 0%, rgba(232,93,4,0.10) 50%, rgba(232,93,4,0.04) 100%)",
+    "linear-gradient(180deg, rgba(255,200,120,0.12) 0%, rgba(232,93,4,0.08) 50%, rgba(232,93,4,0.02) 100%)",
   fillHover:
-    "linear-gradient(180deg, rgba(255,200,120,0.14) 0%, rgba(232,93,4,0.14) 50%, rgba(232,93,4,0.06) 100%)",
-  specular: "inset 0 1px 0.5px -0.5px rgba(255,210,160,0.75)",
+    "linear-gradient(180deg, rgba(255,200,120,0.16) 0%, rgba(232,93,4,0.12) 50%, rgba(232,93,4,0.03) 100%)",
+  specular: "inset 0 1.25px 0.5px -0.5px rgba(255,215,170,0.8)",
   spotlight: "rgba(255,180,80,0.12)",
-  outerGlow: (lifted) =>
-    lifted
-      ? "0 2px 4px rgba(0,0,0,0.25), 0 12px 32px rgba(232,93,4,0.25), 0 0 40px rgba(232,93,4,0.12)"
-      : "0 1px 2px rgba(0,0,0,0.20), 0 8px 24px rgba(232,93,4,0.15), 0 0 24px rgba(232,93,4,0.06)",
+  outerGlow: neutralElevation,
   cornerStack: [
-    "inset 6px 6px 12px -8px rgba(255,200,140,0.25)",
-    "inset -6px -6px 16px -8px rgba(232,93,4,0.20)",
+    "inset 6px 6px 12px -8px rgba(255,200,140,0.22)",
+    "inset -6px -6px 16px -8px rgba(232,93,4,0.18)",
+    "inset 0 -12px 20px -16px rgba(60,20,0,0.55)",
   ].join(", "),
   edgeStack: [
     "inset 0 0 0 1px rgba(232,93,4,0.10)",
-    "inset 1px 0 1px -1px rgba(255,200,140,0.18)",
-    "inset -1px 0 1px -1px rgba(120,40,0,0.12)",
-    "inset 0 -1px 0.5px -0.5px rgba(120,40,0,0.20)",
+    "inset 1px 0 1px -1px rgba(255,200,140,0.20)",
+    "inset -1px 0 1px -1px rgba(120,40,0,0.14)",
+    "inset 0 -1px 0.5px -0.5px rgba(60,20,0,0.28)",
   ].join(", "),
   topLineColor: "rgba(255,160,60,0.7)",
 }
 
 const BLUE_TOKENS: VariantTokens = {
   fill:
-    "linear-gradient(180deg, rgba(160,210,255,0.10) 0%, rgba(0,100,240,0.10) 50%, rgba(0,100,240,0.04) 100%)",
+    "linear-gradient(180deg, rgba(160,210,255,0.12) 0%, rgba(0,100,240,0.08) 50%, rgba(0,100,240,0.02) 100%)",
   fillHover:
-    "linear-gradient(180deg, rgba(160,210,255,0.14) 0%, rgba(0,100,240,0.14) 50%, rgba(0,100,240,0.06) 100%)",
-  specular: "inset 0 1px 0.5px -0.5px rgba(180,220,255,0.75)",
+    "linear-gradient(180deg, rgba(160,210,255,0.16) 0%, rgba(0,100,240,0.12) 50%, rgba(0,100,240,0.03) 100%)",
+  specular: "inset 0 1.25px 0.5px -0.5px rgba(190,225,255,0.8)",
   spotlight: "rgba(120,200,255,0.12)",
-  outerGlow: (lifted) =>
-    lifted
-      ? "0 2px 4px rgba(0,0,0,0.25), 0 12px 32px rgba(0,100,240,0.25), 0 0 40px rgba(0,100,240,0.12)"
-      : "0 1px 2px rgba(0,0,0,0.20), 0 8px 24px rgba(0,100,240,0.15), 0 0 24px rgba(0,100,240,0.06)",
+  outerGlow: neutralElevation,
   cornerStack: [
-    "inset 6px 6px 12px -8px rgba(180,220,255,0.25)",
-    "inset -6px -6px 16px -8px rgba(0,100,240,0.20)",
+    "inset 6px 6px 12px -8px rgba(180,220,255,0.22)",
+    "inset -6px -6px 16px -8px rgba(0,100,240,0.18)",
+    "inset 0 -12px 20px -16px rgba(0,20,60,0.55)",
   ].join(", "),
   edgeStack: [
     "inset 0 0 0 1px rgba(0,100,240,0.10)",
-    "inset 1px 0 1px -1px rgba(180,220,255,0.18)",
-    "inset -1px 0 1px -1px rgba(0,40,100,0.12)",
-    "inset 0 -1px 0.5px -0.5px rgba(0,40,100,0.20)",
+    "inset 1px 0 1px -1px rgba(180,220,255,0.20)",
+    "inset -1px 0 1px -1px rgba(0,30,80,0.14)",
+    "inset 0 -1px 0.5px -0.5px rgba(0,20,60,0.28)",
   ].join(", "),
   topLineColor: "rgba(120,200,255,0.6)",
 }
