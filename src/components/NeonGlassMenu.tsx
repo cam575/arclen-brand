@@ -101,7 +101,7 @@ const NEON_MENU_CSS = `
   right: calc(var(--border) * -1); top: calc(var(--border) * -1); left: auto;
   z-index: 1;
   --start: 12%;
-  background: conic-gradient(from var(--conic, -45deg) at center, transparent var(--start, 0%), hsl(var(--hue), var(--sat, 85%), var(--lit, 65%)), transparent var(--end, 50%)) border-box;
+  background: conic-gradient(from var(--conic, -45deg) at center, transparent var(--start, 0%), hsl(var(--hue), var(--sat, 90%), var(--lit, 72%)), transparent var(--end, 50%)) border-box;
   -webkit-mask-image: linear-gradient(transparent), linear-gradient(black);
   mask-image: linear-gradient(transparent), linear-gradient(black);
   -webkit-mask-clip: padding-box, border-box;
@@ -115,13 +115,13 @@ const NEON_MENU_CSS = `
   z-index: 2;
   --start: 17%;
   --end: 33%;
-  background: conic-gradient(from var(--conic, -45deg) at center, transparent var(--start, 0%), hsl(var(--hue), var(--sat, 80%), var(--lit, 88%)), transparent var(--end, 50%));
+  background: conic-gradient(from var(--conic, -45deg) at center, transparent var(--start, 0%), hsl(var(--hue), var(--sat, 90%), var(--lit, 95%)), transparent var(--end, 50%));
 }
 .neon-menu .shine-bottom {
   top: auto; bottom: calc(var(--border) * -1); left: calc(var(--border) * -1); right: auto;
 }
 
-/* ===== glow — sparse noise-masked color bleed (the signature effect) ===== */
+/* ===== glow — smooth color bleed outside the card ===== */
 .neon-menu .glow {
   pointer-events: none;
   border-top-right-radius: calc(var(--radius) * 2.5);
@@ -131,19 +131,48 @@ const NEON_MENU_CSS = `
   width: 75%; height: auto; aspect-ratio: 1;
   display: block; position: absolute; left: auto; bottom: auto;
 
-  /* noise mask gives the glow a sparse, organic, neon-dust quality
-     instead of a smooth gradient. Biggest single visual upgrade. */
-  -webkit-mask-image: ${NOISE_MASK_URL};
-  mask-image: ${NOISE_MASK_URL};
-  -webkit-mask-mode: luminance;
-  mask-mode: luminance;
-  -webkit-mask-size: 29%;
-  mask-size: 29%;
-
   opacity: 1;
   filter: blur(12px) saturate(1.25) brightness(0.5);
   mix-blend-mode: plus-lighter;
   z-index: 3;
+}
+
+/* ===== noise-inner — speckled neon texture clipped to card interior ===== */
+.neon-menu .noise-inner {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;   /* clip the noise to the card's rounded interior */
+  z-index: 2;
+}
+.neon-menu .noise-inner::before,
+.neon-menu .noise-inner::after {
+  content: "";
+  position: absolute;
+  width: 110%;
+  aspect-ratio: 1;
+  -webkit-mask-image: ${NOISE_MASK_URL};
+  mask-image: ${NOISE_MASK_URL};
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
+  -webkit-mask-size: 40%;
+  mask-size: 40%;
+  mix-blend-mode: plus-lighter;
+  filter: blur(14px) saturate(1.1) brightness(0.35);
+  opacity: 0.35;
+}
+.neon-menu .noise-inner::before {
+  /* ember noise — top-right corner */
+  top: -55%;
+  right: -35%;
+  background: radial-gradient(circle at center, hsl(var(--hue1) 95% 60%) 0%, hsl(var(--hue1) 95% 55% / 0.35) 30%, transparent 55%);
+}
+.neon-menu .noise-inner::after {
+  /* blue noise — bottom-left corner */
+  bottom: -55%;
+  left: -35%;
+  background: radial-gradient(circle at center, hsl(var(--hue2) 95% 60%) 0%, hsl(var(--hue2) 95% 55% / 0.35) 30%, transparent 55%);
 }
 .neon-menu .glow-bottom { inset: calc(var(--radius) * -2); top: auto; right: auto; }
 .neon-menu .glow::before, .neon-menu .glow::after {
@@ -166,20 +195,17 @@ const NEON_MENU_CSS = `
   z-index: 4; opacity: 0.75;
 }
 
-/* ===== glow-bright — sharper outline that accents the shine ===== */
+/* ===== glow-bright — sharp luminous outline that accents the shine ===== */
 .neon-menu .glow-bright {
-  --lit: 80%; --sat: 100%; --start: 13%; --end: 37%;
-  border-width: 5px;
-  border-radius: calc(var(--radius) + 2px);
-  inset: -7px;
+  --lit: 88%; --sat: 100%; --start: 14%; --end: 36%;
+  border-width: 3px;
+  border-radius: calc(var(--radius) + 1px);
+  inset: -4px;
   left: auto;
-  filter: blur(2px) brightness(0.66);
-  /* override the base .glow noise mask — glow-bright is a clean edge */
-  -webkit-mask-image: none;
-  mask-image: none;
+  filter: blur(0.6px) brightness(1);
 }
 .neon-menu .glow-bright::after { content: none; }
-.neon-menu .glow-bright.glow-bottom { inset: -7px; right: auto; top: auto; }
+.neon-menu .glow-bright.glow-bottom { inset: -4px; right: auto; top: auto; }
 
 /* ===== flicker animations ===== */
 .neon-menu .shine, .neon-menu .glow, .neon-menu .glow-bright { animation: neon-glow 1s var(--ease) both; }
@@ -425,6 +451,7 @@ export function NeonGlassMenu({
         <span className="glow glow-bottom" />
         <span className="glow glow-bright glow-top" />
         <span className="glow glow-bright glow-bottom" />
+        <span className="noise-inner" />
 
         <div className="inner">
           {showSearch && (
