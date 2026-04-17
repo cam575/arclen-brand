@@ -245,7 +245,7 @@ export function ArclenFooter({ cta }: { cta?: ArclenFooterCTA } = {}) {
             }}
           />
           <img
-            src="https://arclen.io/images/torus/torusv2.webp"
+            src="https://arclen.io/images/torus/torus-v4-hero.webp"
             alt=""
             width={640}
             height={640}
