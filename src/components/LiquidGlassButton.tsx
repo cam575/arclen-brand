@@ -17,25 +17,26 @@ interface LiquidGlassButtonProps {
   style?: CSSProperties
 }
 
-/* Inset reflex stack — sharper top specular highlight than the base
-   LIQUID_GLASS_SHADOW for the wet-glass feel. */
+/* Inset reflex stack — thin wet-glass edge. Values tuned down from the
+   original thicker bevel so the button reads as a refined hairline
+   rather than a chunky jewel. */
 const REFLEX_STACK_BASE = [
-  "inset 0 0 0 1px rgba(255,255,255,0.05)",
-  "inset 0 1.5px 0.5px -0.5px rgba(255,255,255,0.55)", // sharper top specular
-  "inset 1.8px 3px 0px -2px rgba(255,255,255,0.27)",
-  "inset -2px -2px 0px -2px rgba(255,255,255,0.24)",
-  "inset -3px -8px 1px -6px rgba(255,255,255,0.18)",
-  "inset -0.3px -1px 4px 0px rgba(0,0,0,0.24)",
-  "inset -1.5px 2.5px 0px -2px rgba(0,0,0,0.40)",
+  "inset 0 0 0 0.5px rgba(255,255,255,0.06)",
+  "inset 0 1px 0.5px -0.5px rgba(255,255,255,0.45)", // top specular (thinner)
+  "inset 1px 1.5px 0px -1px rgba(255,255,255,0.18)",
+  "inset -1px -1px 0px -1px rgba(255,255,255,0.16)",
+  "inset -1.5px -4px 1px -4px rgba(255,255,255,0.10)",
+  "inset -0.3px -0.5px 2px 0px rgba(0,0,0,0.18)",
+  "inset -1px 1.5px 0px -1.5px rgba(0,0,0,0.28)",
 ].join(", ")
 
 const REFLEX_STACK_ACTIVE = [
-  "inset 0 0 0 1px rgba(232,93,4,0.10)",
-  "inset 0 1.5px 0.5px -0.5px rgba(255,200,140,0.65)", // ember-tinted top highlight
-  "inset 1.8px 3px 0px -2px rgba(255,200,140,0.30)",
-  "inset -2px -2px 0px -2px rgba(232,93,4,0.20)",
-  "inset 0 -8px 12px -6px rgba(232,93,4,0.35)", // bottom ember glow
-  "inset -0.3px -1px 4px 0px rgba(0,0,0,0.20)",
+  "inset 0 0 0 0.5px rgba(232,93,4,0.12)",
+  "inset 0 1px 0.5px -0.5px rgba(255,200,140,0.55)", // ember top highlight (thinner)
+  "inset 1px 1.5px 0px -1px rgba(255,200,140,0.22)",
+  "inset -1px -1px 0px -1px rgba(232,93,4,0.18)",
+  "inset 0 -6px 10px -6px rgba(232,93,4,0.30)", // bottom ember glow
+  "inset -0.3px -0.5px 2px 0px rgba(0,0,0,0.16)",
 ].join(", ")
 
 /* Outer drop shadow — gives elevation so the button floats above the surface */
