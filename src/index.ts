@@ -17,6 +17,8 @@ export {
   GlassSkeleton,
   hexToRgbInline,
   ArclenFooter,
+  ArclenNav,
+  MenuButton,
   GlowButton,
   DashNavItem,
   DashTab,
@@ -38,6 +40,9 @@ export {
 } from "./components"
 export type {
   ArclenFooterCTA,
+  ArclenNavProps,
+  NavTheme,
+  MenuButtonProps,
   LiquidGlassSwitcherOption,
   NeonMenuItem,
   NeonMenuSection,

@@ -17,6 +17,10 @@ export { GlassSpotlight, GlassNoise, GlassShimmer, GlassSkeleton } from "./Glass
 export { hexToRgbInline } from "./helpers"
 export { ArclenFooter } from "./ArclenFooter"
 export type { ArclenFooterCTA } from "./ArclenFooter"
+export { ArclenNav } from "./ArclenNav"
+export type { ArclenNavProps, NavTheme } from "./ArclenNav"
+export { MenuButton } from "./MenuButton"
+export type { MenuButtonProps } from "./MenuButton"
 
 // Brand button system (ported from /glass reference page)
 export { GlowButton } from "./GlowButton"
