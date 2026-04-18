@@ -1,0 +1,20 @@
+name: Notify consumers
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo:
+          - cam575/arclen-ai-builder
+    steps:
+      - name: Dispatch to ${{ matrix.repo }}
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.DISPATCH_PAT }}
+          repository: ${{ matrix.repo }}
+          event-type: arclen-brand-updated
+          client-payload: '{"sha":"${{ github.sha }}","msg":"${{ github.event.head_commit.message }}"}'
