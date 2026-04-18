@@ -250,11 +250,6 @@ export function ArclenFooter({ cta }: { cta?: ArclenFooterCTA } = {}) {
             width={640}
             height={640}
             className="relative w-[80px] md:w-[100px] h-auto"
-            style={{
-              maskImage: "radial-gradient(circle, black 40%, transparent 60%)",
-              WebkitMaskImage: "radial-gradient(circle, black 40%, transparent 60%)",
-              filter: "brightness(0.8)",
-            }}
             aria-hidden="true"
           />
         </div>
