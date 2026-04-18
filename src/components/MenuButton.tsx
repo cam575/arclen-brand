@@ -69,7 +69,7 @@ export function MenuButton({ isOpen, onClick, className }: MenuButtonProps) {
         className={`relative z-10 transition-all duration-300 ${
           isOpen
             ? "size-3.5 md:size-4 text-[#E85D04]"
-            : "size-4 md:size-5 text-white"
+            : "size-4 md:size-5"
         }`}
         duration={400}
       />

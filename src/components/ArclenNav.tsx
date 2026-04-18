@@ -114,7 +114,7 @@ export function ArclenNav({
       >
         <div
           className={cn(
-            "w-full relative overflow-hidden pointer-events-auto",
+            "w-full relative overflow-hidden pointer-events-auto text-white",
             navTheme === "light" ? "arclen-nav-pill--light" : ""
           )}
           style={{
