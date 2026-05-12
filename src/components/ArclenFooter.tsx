@@ -47,7 +47,7 @@ const FOOTER_LINKS: Record<string, FooterLink[]> = {
 
 export function ArclenFooter({ cta }: { cta?: ArclenFooterCTA } = {}) {
   return (
-    <footer className="relative pb-16 overflow-hidden">
+    <footer className="relative pb-16 overflow-hidden bg-[#080808]">
       {/* Merged final CTA (optional) */}
       {cta && (
         <section className="relative pt-24 pb-20 md:pt-32 md:pb-24 overflow-hidden">
@@ -208,70 +208,27 @@ export function ArclenFooter({ cta }: { cta?: ArclenFooterCTA } = {}) {
             <path d="M391.17,125.74c-2.91.62-6.09.97-9.58.97-21.03,0-36.33-16.41-36.89-38.92h88.16c-.37-32.46-22.87-52.56-50.72-52.56-30.62,0-50.35,25.08-50.35,51.83s18.63,51.09,51.09,51.09c5.1,0,9.85-.57,14.27-1.69-2.89-2.91-4.98-6.6-5.98-10.72ZM382.32,47.4c16.97,0,31.54,9.04,36.7,29.33h-73.04c5.72-19.92,18.81-29.33,36.33-29.33Z" />
             <path d="M467.71,55.33c10.14-13.28,22.32-20.1,36.7-20.1,21.39,0,36.33,14.75,36.33,45.55v54.96h-12.54v-53.3c0-23.05-7.19-35.78-26.19-35.78-10.51,0-19.18,4.61-25.82,13.28-7.38,9.59-8.48,19.18-8.48,34.67v41.13h-12.54V37.81h12.54v17.52Z" />
           </g>
-          <circle cx="419.66" cy="122.98" r="12.75" fill="#E85D04" fillOpacity="0.08" />
         </svg>
 
-        {/* Horizontal rule through center */}
+        {/* Soft ember floor-glow centered behind the wordmark */}
         <div
-          className="absolute left-0 right-0"
+          aria-hidden="true"
+          className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
           style={{
-            top: "50%",
-            height: 1,
-            zIndex: 1,
+            bottom: 0,
+            width: "60%",
+            height: 140,
             background:
-              "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.06) 80%, transparent 100%)",
+              "radial-gradient(ellipse 50% 100% at 50% 100%, rgba(232,93,4,0.12) 0%, rgba(232,93,4,0.04) 40%, transparent 75%)",
           }}
         />
 
-        {/* Centered torus */}
-        <div
-          className="absolute"
-          style={{
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            zIndex: 2,
-          }}
-        >
-          <div
-            className="absolute rounded-full"
-            style={{
-              width: "140%",
-              height: "140%",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              background: "radial-gradient(circle, rgba(232,93,4,0.15) 0%, rgba(232,93,4,0.05) 40%, transparent 70%)",
-            }}
-          />
-          <img
-            src="https://arclen.io/images/torus/torus-v4-hero.webp"
-            alt=""
-            width={640}
-            height={640}
-            className="relative w-[80px] md:w-[100px] h-auto"
-            aria-hidden="true"
-          />
-        </div>
-
-        {/* Bottom fade overlay */}
+        {/* Bottom fade to deep black */}
         <div
           className="absolute bottom-0 left-0 right-0 pointer-events-none"
           style={{
             height: 80,
             background: "linear-gradient(to top, #080808, transparent)",
-          }}
-        />
-
-        {/* Subtle orange glow */}
-        <div
-          className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
-          style={{
-            bottom: 0,
-            width: 400,
-            height: 80,
-            background:
-              "radial-gradient(ellipse, rgba(232,93,4,0.06), transparent 70%)",
           }}
         />
       </div>
